@@ -1,0 +1,16 @@
+{% extends 'BusConnect/navbars.html' %}
+
+{% block content %}
+{% if request.user.is_superuser %}
+<div class="container">
+  <h2>Add Article</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+  </form>
+{% else %}
+<h1>you cant add article </h1>
+{% endif%}  
+{% endblock %}

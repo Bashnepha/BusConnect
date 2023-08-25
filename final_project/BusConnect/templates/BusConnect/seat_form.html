@@ -1,0 +1,18 @@
+<!-- template -->
+ {% extends "BusConnect/navbars.html" %}
+ {% block content %}
+ <div class="container mt-5">
+    <h4> Dear mr {{request.user.get_full_name.capitalize }}</h4>
+    <p>you choose to book schedule  <strong>{{schedule.route}}</strong> on date  <strong>{{schedule.date}}</strong> departure time is <strong>{{schedule.departure_time}}</strong> </p>
+    <p>this will cost you amount of <strong>{{schedule.route.cost}}</strong>Naira for each seat</p>
+    <p> hurry up, the total number of Available Seats are : <strong>{{ schedule.get_available_seats }}</strong></p>
+    <p>here is list of availabnle seat numbers <strong>{{schedule.get_unbooked_seats}}</strong></p>
+    <p>enter number of seats you want to book and click continue to procead </p>
+    <form method="post">
+        {% csrf_token %}
+        <label for="num_seats">Select Number of Seats:</label>
+        <input type="number" id="num_seats" name="num_seats" min="1" max="{{schedule.get_available_seats}}" required>
+        <button type="submit" class="btn btn-primary">continue</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'BusConnect/navbars.html' %}
+{% block content %}
+<div class="container mt-5">
+<form method="post">
+{% csrf_token %}
+<p>are you sure you want to procede to payment for schedule {{schedule.route}} </p>
+<p>you choose to book {{num_seats}} seats </p>
+<p> {{num_seats}} seats will cost you amount of {{booking_cost}}Naira, {{schedule.route.cost}}Naira for each seat</p>
+<p>click pay to pay now with fluterwave or canceal to go back</p>
+<input type="number" id="num_seats" name="num_seats" value="{{num_seats}}" hidden="hidden">
+<input type="number" id="schedule_id" name="schedule_id" value="{{schedule.id}}" hidden="hidden" >
+<button type="submit" class="btn btn-primary mb-2">pay now</button><br>
+<a href="{% url 'buses_schedules' %}" class="btn btn-danger"> go back</a>
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,230 @@
+
+
+.popular-routes,
+    .plan-your-trip {
+      background-color: #ffffff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .popular-routes h2,
+    .plan-your-trip h2 {
+      font-size: 1.8rem;
+      color: #333333;
+      margin-bottom: 1.5rem;
+    }
+
+    .popular-routes ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .popular-routes li {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    .popular-routes li:last-child {
+      border-bottom: none;
+    }
+
+    
+    .news-card-deck {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      animation: slideLeft 1s ease-in-out;
+    }
+  
+    .card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  
+    @keyframes slideLeft {
+      0% {
+        opacity: 0;
+        transform: translateX(100%);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    .popular-routes .icon {
+      .image-container {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+      }
+    
+      .image-container::before {
+        content: "";
+        display: block;
+        padding-top: 56.25%; /* 16:9 aspect ratio */
+      }
+    
+      .image-container img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    
+      font-size: 1rem;
+      margin-right: 0.5rem;
+    }
+
+    .plan-your-trip .form-group label {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #555555;
+    }
+
+    .plan-your-trip .form-group input {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    .plan-your-trip .form-group input:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+      border-color: #80bdff;
+    }
+
+    .plan-your-trip .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+    }
+
+    .plan-your-trip .btn-primary:hover {
+      background-color: #0069d9;
+      border-color: #0062cc;
+    }
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.gallery-item {
+  width: 300px;
+  margin: 10px;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: auto;
+}
+.testimonial-slider {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+margin-top: 20px;
+}
+
+.testimonial {
+flex: 1 0 300px;
+margin: 15px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+animation: slideIn 1s ease;
+animation-fill-mode: forwards;
+opacity: 0;
+transform: translateY(100%);
+background-color: #fff;
+border-radius: 8px;
+padding: 20px;
+text-align: center;
+}
+
+.testimonial-content {
+margin-bottom: 20px;
+}
+
+.testimonial-content p {
+color: #333;
+font-size: 16px;
+line-height: 1.6;
+}
+
+.testimonial-author {
+color: #666;
+font-size: 14px;
+font-style: italic;
+}
+
+@keyframes slideIn {
+0% {
+  opacity: 0;
+  transform: translateY(100%);
+}
+100% {
+  opacity: 1;
+  transform: translateY(0);
+}
+}
+
+
+  .card-deck {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+margin: -15px;
+}
+
+.card {
+flex: 1 0 300px;
+margin: 15px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+animation: slideIn 1s ease;
+animation-fill-mode: forwards;
+opacity: 0;
+transform: translateY(100%);
+background-color: #fff;
+border-radius: 8px;
+padding: 20px;
+text-align: center;
+}
+
+.card i {
+font-size: 3rem;
+color: #6c757d;
+margin-bottom: 1.5rem;
+}
+
+.card h3 {
+color: #000;
+}
+
+.card p {
+color: #6c757d;
+}
+
+@keyframes slideIn {
+0% {
+opacity: 0;
+transform: translateY(100%);
+}
+100% {
+opacity: 1;
+transform: translateY(0);
+}
+}

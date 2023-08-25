@@ -1,0 +1,61 @@
+{% extends 'BusConnect/navbars.html' %}
+{% block content %}
+    <style>
+        /* Custom CSS styles */
+        .profile-image {
+            border-radius: 50%;
+            max-width: 200px;
+            height: auto;
+        }
+        
+        .profile-container {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .profile-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 768px) {
+            /* Responsive styles for smaller screens */
+            .profile-image {
+                max-width: 150px;
+            }
+        }
+        </style>
+  
+    <div class="container">
+        <h1 class="text-center">welcome back!! {{user.username}} </h1>
+        <div class="profile-container ">
+            {% if profile %}
+                <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-image">
+                <h2>{{ request.user.get_full_name }}</h2><br>
+                <p><strong>State of Origin:</strong> {{ profile.state_of_origin }}</p><br>
+                <p><strong>Local Government:</strong> {{ profile.local_government }}</p><br>
+                <p><strong>Date of Birth:</strong> {{ profile.date_of_birth }}</p>
+                <p><strong>Address:</strong> {{ profile.address }}</p>
+                <p><strong>NIN:</strong> {{ profile.nin_number }}</p>
+                <p><strong>Phone</strong> {{ profile.phone_number }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+            {% else %}
+                <p>No profile available for this user.</p>
+                <p>Please proceed to create your profile:</p>
+                <form method="post" enctype="multipart/form-data" class="profile-form">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}">{{ field.label_tag }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <small class="text-danger">{{ field.errors }}</small>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary">Create Profile</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,75 @@
+ {% extends "BusConnect/navbars.html" %}
+<!-- template -->
+{% block content %}
+
+
+<style>
+
+  /* Custom styles for the table */
+.table {
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+/* Custom styles for the "Read More" link */
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  padding: 3px 3px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background-color: #0069d9;
+}
+</style>
+<div class="container">
+<table class="table">
+<h1 class="text-center  text-secondary m-5">bus schedules </h1>
+    <thead>
+      <tr>
+        <th>S/N</th>
+        <th>Bus Number</th>
+        <th>Origin</th>
+        <th>Destination</th>
+        <th>Driver</th>
+        <th>Time</th>
+        <th>Date</th>
+        <th>Booked Seats</th>
+        <th>Available Seats</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for schedule in schedules %}
+        <tr>
+          <td>{{schedule.id}}</td>
+          <td>{{ schedule.bus.bus_number }}</td>
+          <td>{{ schedule.route.origin }}</td>
+          <td>{{ schedule.route.destination }}</td>
+          <td>{{ schedule.bus.driver.user.get_full_name}}</td>
+          <td>{{schedule.departure_time.time}}</td>
+          <td>{{schedule.date}}</td>
+          <td>{{ schedule.get_booked_seats }}</td>
+          <td>{{ schedule.get_available_seats }}</td>
+          <td>
+            <a href="{% url 'book_schedule' schedule.id %}"class="btn btn-secondary">book now</a>
+          </td>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+
+  {% endblock %}

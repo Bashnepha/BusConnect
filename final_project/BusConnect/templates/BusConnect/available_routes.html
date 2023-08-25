@@ -1,0 +1,79 @@
+{% extends 'BusConnect/navbars.html'%}
+{%   block content %}
+
+<style>
+
+  /* Custom styles for the table */
+.table {
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+/* Custom styles for the "Read More" link */
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  padding: 3px 3px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background-color: #0069d9;
+}
+
+</style>
+<div class="container">
+<h3 class="text-dark text-center m-3">Availble routes</h3>
+<table class="table">
+  <thead class="thead-dark">
+
+      <tr>
+        <th>S/N</th>
+          <th>Origin</th>
+          <th>Destination</th>
+          <th>Distance</th>
+          <th>Cost</th>
+          <th>Duration</th>
+          
+
+         
+
+
+      </tr>
+  </thead>
+  <tbody>
+   
+      {% for route in routes %}
+          <tr>
+            <td>{{ route.id}}</td>
+              <td>{{ route.origin }}</td>
+              <td>{{ route.destination}}</td>
+              <td>{{ route.distance }}</td>
+              <td>{{ route.cost }}Naira</td>
+              <td>{{ route.duration}}</td>
+              
+          
+
+
+          </tr>
+      {% endfor %}
+
+      
+      
+  </tbody>
+</table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "BusConnect/navbars.html" %}
+{%  block content %}
+<div class="container">
+    <form method="post" action="{% url 'email' %}">
+    {% csrf_token %}
+    <div class="form-group">
+    <label for="subject">subject</label>
+    <input type="text" name="subject" id="subject" placeholder="subject ">
+    </div>
+    <div class="form-group">
+    <label for="message" >message</label>
+    <input type="text" placeholder="type message" id="message" name="message">
+   </div>
+   <div class="form-group">
+    <label for="recipient_list" >your email</label>
+    <input type="email" placeholder="your email" id="recipient" name="recipient">
+   <input class="btn btn-secondary" type="submit">
+   </div>
+</form>
+</div>
+{% endblock %}

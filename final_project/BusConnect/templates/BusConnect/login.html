@@ -1,0 +1,17 @@
+{% extends 'BusConnect/navbars.html' %}
+
+{% block content %}
+<div class="container">
+<h2>Login to your account</h2>
+<form method="post" action="{%  url 'login' %}">
+  {% csrf_token %}
+  {% if error_message %}
+  {{error_message}}
+  {% endif %}
+ {{form.as_p}}
+    <input type="submit" value='submit'>
+</form>
+   
+</div>
+{% endblock %}
+

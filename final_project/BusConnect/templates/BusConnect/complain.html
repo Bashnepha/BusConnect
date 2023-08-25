@@ -1,0 +1,30 @@
+{% extends 'BusConnect/navbars.html' %}
+{% block content %}
+<div class="container">
+ {% if complain %}
+<h2>Your Complaints</h2>
+  <ul>
+    {% for complaint in complain %}
+      <li>{{ complaint.subject }}</li>
+      <p>{{ complaint.description }}</p>
+      <p>Resolved: {% if complaint.is_resolved %}Yes{% else %}No{% endif %}</p>
+      <p>Submitted at: {{ complaint.timestamp }}</p>
+      <a href="#">view reply </a>
+      <hr>
+    {% endfor %}
+  </ul>
+  <p>submit another </p>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+  </form>
+{% else %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+  </form>
+ {% endif %}
+</div>
+{% endblock %}

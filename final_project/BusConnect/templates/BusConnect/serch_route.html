@@ -1,0 +1,13 @@
+{%  extends 'BusConnect/navbars.html' %}
+{% block content %}
+<div class="container">
+{% if error_massage %}
+<div class="alert alert-danger m-5">{{error_massage}}</div>
+{% endif %}
+<form method="post" action="{% url 'search_route' %}">
+  {% csrf_token %}
+{{form.as_p}}
+<input type="submit">
+</form>
+</div>
+{% endblock   %}

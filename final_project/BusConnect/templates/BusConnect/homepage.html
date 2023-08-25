@@ -1,0 +1,218 @@
+{% extends 'BusConnect/navbars.html' %}
+{% load static %}
+
+
+{% block content %}
+ 
+
+
+  <div class="px-4 py-5 my-5 text-center  mt-0 mb-2 ">
+    <img class="d-block mx-auto mb-4" src="{% static 'images/home.jpg' %}" alt="" width="70" height="70">
+    <h1 class="display-5 fw-bold ">BusConnect</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">{{homepage_text.our_history}}</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <a href="{% url 'signup' %}" class="btn btn-primary btn-lg px-4 gap-3">signup now!!</a>
+       
+      </div>
+    </div>
+  </div>
+
+
+  <section class="container py-4 bg-secondary ">
+    <h2 class="text-center mb-3 text-light">Our Mission & Vision</h2>
+    <div class="card-deck">
+      <div class="card">
+        <div class="card-body">
+          <i class="fas fa-bullseye"></i>
+          <h3>Mission</h3>
+          <p>{{homepage_text.our_mission}}</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <i class="fas fa-eye"></i>
+          <h3>Vision</h3>
+          <p>{{homepage_text.our_vission}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  
+
+<section class="container py-4">
+  <h2 class="text-center">Our Services</h2>
+  <div class="row">
+    <div class="row align-items-stretch">
+    {% for service in services %}
+    <div class="col-md-6 col-lg-6  d-flex">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3><i class="{{ service.service_icon }}"></i> {{ service.service_title }}</h3>
+          <p>{{ service.service_description }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+
+  
+
+
+  
+<section class="container py-4">
+  <h2>Online Booking System</h2>
+  <div class="row">
+    <div class="col-md-6">
+      <img src="{% static 'images/home.jpg' %}" alt="Online Booking System" class="img-fluid">
+    </div>
+    <div class="col-md-6">
+      <h3>Convenient and Easy Online Booking</h3>
+      <p>Experience hassle-free bus ticket booking with our online booking system. Whether you're planning a solo trip or traveling with a group, our user-friendly platform allows you to book your tickets in a few simple steps.</p>
+      <ul>
+        <li>create your account first or login if alrady  have an account.</li>
+        <li>after succseseful registration, login  to your account</li>
+        <li>navigate to book from your dashbord</li>
+        <li>enter time and date</li>
+        <li>Enter passenger details and choose your seats</li>
+        <li>Proceed to secure online payment</li>
+      </ul>
+      <p>Our online booking system provides real-time updates on seat availability and allows you to select your preferred seats. You can also customize your booking by adding additional services such as meal options or baggage handling.</p>
+      <p>Book your bus tickets online today and enjoy a seamless travel experience!</p>
+      <a href="{% url 'signup' %}" class="btn btn-primary">signup!!</a>
+    </div>
+  </div>
+</section>
+
+
+
+  <section class="container py-4   mb-3">
+    <h2 class="text-center m-4">We say to our customers </h2>
+    <div class="card-deck">
+      <div class="card">
+        <div class="card-body">
+          <blockquote class="blockquote">
+            <p class="mb-0"><i class="fas fa-quote-left"></i> "The joy of traveling is not just reaching the destination, but the experiences you gather along the way."</p>
+          </blockquote>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <blockquote class="blockquote">
+            <p class="mb-0"><i class="fas fa-quote-left"></i> "Traveling by bus allows you to sit back, relax, and enjoy the journey while someone else takes care of the driving."</p>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+  <div class="container mb-5">
+    <div class="row">
+      <div class="col-md-6">
+        <section class="container py-4 popular-routes">
+          <h2><i class="icon fas fa-bus"></i> Popular Routes</h2>
+          <ul class="list-group">
+            {% for populer_route in populer_routes %}
+            <li class="list-group-item"><i class="icon fas fa-route"></i> {{populer_route.route.origin.city}} - {{populer_route.route.destination.city}} </li>
+          </ul>
+          {% endfor %}
+        </section>
+      </div>
+      <div class="col-md-6 mt-1">
+        <section class="container py-4 plan-your-trip">
+          <h2><i class="icon fas fa-map-marker-alt"></i> Plan Your Trip</h2>
+          
+          <form method="post" action="{% url 'search_route' %}">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="origin">Origin</label>
+              <input type="text" class="form-control" name="origin"  maxlength="30" id="id_origin" placeholder="Enter origin">
+            </div>
+            <div class="form-group">
+              <label for="destination">Destination</label>
+              <input type="text" class="form-control" name="destination"  maxlength="30" id="id_destination" placeholder="Enter destination">
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Submit</button>
+          </form>
+          <p class="mt-3">Submit to see details about your trip</p>
+        </section>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <section class="container py-4">
+    <h2 class="text-center mb-4">Frequently Asked Questions</h2>
+    <div class="raw">
+      <div class="col-lg-12">
+    <div class="accordion" id="faqAccordion">
+      {% for faq in faqs %}
+      <div class="card">
+        <div class="card-header" id="faqHeading{{ forloop.counter }}">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"  data-target="#faqCollapse{{ forloop.counter }}" aria-expanded="false" aria-controls="faqCollapse{{ forloop.counter }}">
+              {{ faq.question }}
+            </button>
+          </h5>
+        </div>
+        <div id="faqCollapse{{ forloop.counter }}" class="collapse" aria-labelledby="faqHeading{{ forloop.counter }}" data-parent="#faqAccordion">
+          <div class="card-body">
+            {{ faq.answer }}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    </div>
+    </div>
+  </section>
+
+
+  <footer class="footer bg-dark text-light py-4 mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h4>About Us</h4>
+          <p>with us the journy become better!!. quite populer transportation hub in nigeria.</p>
+        </div>
+        <div class="col-md-6">
+          <h4>Contact Us</h4>
+          <p>Na'ibawa, Zaria Road Kano, Kano State, Nigeria.</p>
+          <p>nalawiza7@gmail.com</p>
+          <p>Phone: +2348088462602</p>
+        </div>
+      </div>
+      <hr>
+      <div class="text-center">
+        <p>&copy; 2023 Na'ibawa bus satation. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  
+  
+  
+  <script src="https://kit.fontawesome.com/your-fontawesome-kit-id.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+ 
+
+  
+
+{% endblock %}

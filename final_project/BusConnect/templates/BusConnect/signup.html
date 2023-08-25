@@ -1,0 +1,18 @@
+{% extends 'BusConnect/navbars.html' %}
+
+{% block content %}
+<div class="container mt-5 mb-5 ">
+  <div class="row justify-content-center">
+    <div class="col-md-6 ">
+      <h2 class="text-center text-primary">Join Us Today</h2>
+      <form method="post" action="{% url 'signup' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="text-center">
+          <input type="submit" class="btn btn-primary" value="Submit">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
