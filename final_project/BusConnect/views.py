@@ -4,17 +4,21 @@ from django.http import HttpResponse
 from .forms import  MyUserCreationForm, LoginForm,ArticleForm, Search_routeForm,TripForm,UserProfileForm,ComplainForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-from django.http import Http404,HttpResponse
+from django.http import Http404,HttpResponse,HttpResponseRedirect
 from datetime import datetime,timedelta,timezone
 from django.db import transaction
-from .models import Route,Article,HomepageText,Faqs, OurService,PopulerRoute,Schedule,Bus,UserProfile,Complain
+from .models import Route,Article,HomepageText,Faqs, OurService,PopulerRoute,Schedule,Bus,UserProfile,Complain,Payment
 from django.shortcuts import render, HttpResponse
 from .forms import TripForm
 from django.conf import settings
 from django.core.mail import send_mail
 from django.db import transaction
-from .functions import send_sms, get_available_bus
+from .functions import send_sms, get_available_bus,generate_transaction_reference,verify_payment
 from django.contrib import messages
+import requests
+import re
+import datetime
+
 
 
 
@@ -72,17 +76,56 @@ def payment(request):
         
 
     if request.method == 'POST':
+        user = request.user
+        transaction_reference = generate_transaction_reference()
+        currency = 'NGN'  # Assuming the currency is NGN
+        amount = booking_cost
+        customer_email= user.email
+        contact=UserProfile.objects.filter(user=user).first()
         
-        # Handle the payment processing logic here
-        # For example, make API calls to the payment gateway (e.g., Flutterwave API) to initiate payment
-        # Once the payment is successful, update the booking status in the database
+        response = requests.post('https://api.flutterwave.com/v3/payments', headers={
+        'Authorization': f'Bearer {settings.FLUTERWAVE_SECRET_KEY}',  
+        }, 
 
-        # Clear the session data after processing the payment
-        #request.session.pop('num_seats', None)
-        #request.session.pop('schedule_id', None)
+        json={
+        'amount': amount,
+        'currency': currency,
+        'tx_ref': transaction_reference,
+        'redirect_url':'https://88ef-105-112-224-47.ngrok-free.app/',
+        'customer': {
+            'email': customer_email,
+            'phonenumber':contact.phone_number,
+            'name': f'{user.first_name} {user.last_name}'
+        },
+        'customizations': {
+            'title': 'NAIBAWA BUS STATION'
+        }
+       })
+        
+        
+        if response.status_code == 200:
+            data = response.json()
+            redirect_url = data['data']['link']
 
-        # Return a response to let the user know that the payment will be processed
-        return HttpResponse('Payment processing in progress...')
+            payment = Payment.objects.create(
+                user=user,
+                tx_ref=transaction_reference,
+                status='pending',
+                payment_date=datetime.datetime.now(),
+                amount=amount,
+                schedule=schedule
+            )
+            payment.save()
+            
+          
+            return HttpResponseRedirect(redirect_url)
+        
+        else:
+            return HttpResponse({ 'Payment initialization failed'})
+        
+    
+       
+        
     else:
         
         # Pass the necessary data to the payment template for confirmation
@@ -93,6 +136,15 @@ def payment(request):
         }
 
         return render(request, 'BusConnect/payment.html', context)
+    
+    
+    
+def payment_callback(request):
+    if request.method=='GET':
+        tx_ref = request.GET.get('tx_ref')
+        verify_payment(tx_ref)
+    else:
+        return HttpResponse('invalid request method')
 
 
 def book_schedule_view(request, schedule_id):
@@ -271,8 +323,8 @@ def customer_dashbord(request):
    
 
 def buses_schedules(request):
-    current_date= datetime.now().date()
-    current_time= datetime.now().time()
+    current_date= datetime.datetime.now().date()
+    current_time= datetime.datetime.now().time()
     schedules= Schedule.objects.filter(date=current_date, departure_time__time__gte=current_time)
     if schedules:
         context= {'schedules':schedules}

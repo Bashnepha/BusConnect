@@ -20,6 +20,8 @@ urlpatterns = [
     path('sms', views.sms, name='sms'),
     path('email', views.email, name='email'),
     path('complain', views.complain, name='complain'),
+    path('payment_callback', views.payment_callback, name='payment_callback'),
+    
     
     
     

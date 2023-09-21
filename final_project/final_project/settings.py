@@ -138,12 +138,16 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'nalawiza7@gmail.com'
-EMAIL_HOST_PASSWORD = 'cndytkfkowzuqrow'
+EMAIL_HOST_USER = 'basheermmustapha@gmail.com'
+EMAIL_HOST_PASSWORD = 'mfgmycjzrmjofwzj'
 
 
 
 
+
+
+FLUTERWAVE_SECRET_KEY= 'FLWSECK_TEST-c14a2a3fba61be7e77bdb25c8832d1ad-X'
+FLUTTERWAVE_WEBHOOK_SECRET_HASH = 'your-webhook-secret-hash'
 
 
 TWILIO_ACCOUNT_SID = 'AC08f46626846fd8aaff6b7caebbc7493c'

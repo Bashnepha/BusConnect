@@ -16,7 +16,7 @@ class UserAdmin(UserAdmin):
 
    
 class PaymentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'amount', 'payment_date', 'status', 'transaction_id','schedule')
+    list_display = ('id', 'user', 'amount', 'payment_date', 'status', 'tx_ref','transaction_id','schedule')
 
 
 

@@ -153,8 +153,8 @@ class Payment(models.Model):
     payment_date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20)
     transaction_id = models.CharField(max_length=50)
+    tx_ref=models.CharField(max_length=30,null=True)
     schedule = models.ForeignKey('BusConnect.Schedule', on_delete=models.CASCADE,related_name='booking_payment')
-    
     
     
     def __str__(self):
